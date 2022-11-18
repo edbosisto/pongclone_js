@@ -13,6 +13,8 @@
 body {
     margin: 0;
     background-color: var(--background-color);
+    /* prevent scroll bars if ball moves off screen */
+    overflow: hidden;
 }
 
 /* Use vh for dimensions to ensure game is always fair regardless of screen size */
