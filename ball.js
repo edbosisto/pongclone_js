@@ -5,7 +5,6 @@ export default class Ball {
     constructor(ballElem) {
         this.ballElem = ballElem
         this.reset()
-        this.rect()
     }
 
     // Get current x value of ball
@@ -44,20 +43,21 @@ export default class Ball {
         this.velocity = INITIAL_VELOCITY
     }
 
-    update(delta) {
+    update(delta, paddleRects) {
         this.x += this.direction.x * this.velocity * delta
         this.y += this.direction.y * this.velocity * delta
         this.velocity += VELOCITY_INCREASE * delta
         const rect = this.rect()
 
-        // Check if ball has gone past bottom or top of screen
+        // Check if ball collides with bottom or top of screen
         if (rect.bottom >= window.innerHeight || rect.top <= 0) {
-            // Reverse the Y direction of ball
+            // Reverse the Y direction of ball (bounce)
             this.direction.y *= -1
         }
 
-        if (rect.right >= window.innerWidth || rect.left <= 0) {
-            // Reverse the Y direction of ball
+        // Check if ball collides with paddles
+        if (paddleRects.some(r => isCollision(r, rect))) {
+            // Reverse the X direction of ball (bounce)
             this.direction.x *= -1
         }
     }
@@ -66,4 +66,14 @@ export default class Ball {
 // Random no. between 0 and 1, scaled by *(max-min), and add min to make sure min is smallest we have
 function randomNumberBetween(min, max) {
     return Math.random() * (max - min) + min
+}
+
+// Check for collision with paddle
+function isCollision(rect1, rect2) {
+    return (
+        rect1.left <= rect2.right &&
+        rect1.right >= rect2.left &&
+        rect1.top <= rect2.bottom &&
+        rect1.bottom >= rect2.top
+    )
 }
