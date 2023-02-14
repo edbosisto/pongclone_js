@@ -1,6 +1,6 @@
 # pongclone_js
 
-A simple web browser pong game, built with html, css and javascript. Built as a learning exercise by Ed Bosisto with guidance from YouTube channel https://www.youtube.com/@WebDevSimplified
+A simple web browser pong game, built with html, css and javascript. Built as a learning exercise.
 
 ### To play, simply open index.html in a browser.
 
